@@ -1,0 +1,24 @@
+<style>
+  body {
+    font-family: arial, sans-serif;
+    color: grey;
+  }
+  input {
+    padding: 20px;
+    border: 1px solid;
+  }
+</style>
+
+<a href="/about">About This Class</a>
+
+<h1><%= title %></h1>
+<ul>
+  <% students.forEach(function(student){ %>
+    <li><%= student %></li>
+  <% }) %>
+</ul>
+
+<form action="/submit" method="POST">
+  <input type="text" name="color">
+  <input type="submit">
+</form>
