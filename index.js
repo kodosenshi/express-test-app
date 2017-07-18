@@ -76,6 +76,6 @@ app.post('/submit', (request, response) => {
 // open your browser to http://localhost:3000
 // that will render the "/" route above
 
-const server = app.listen(port, () => {
+const server = app.listen(3000, () => {
     console.log('server started on port', server.address().port);
 });
