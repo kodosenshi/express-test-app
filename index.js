@@ -2,7 +2,7 @@
 // node based web apps.
 const express = require('express');
 
-// Remember node doesnt give use the body data from a POST request
+// Remember node doesn't give us the body data from a POST request
 // we must use middleware for that, this package does that for us
 const parser = require('body-parser');
 
@@ -21,9 +21,10 @@ const classData = {
   ]
 }
 
-//parses requests with the content type of `application/json` by default
+// the body parser middleware parses requests with the content type of `application/json` by default
 // but since our form is using FormData instead of JSON we need to use the right parser
 // https://developer.mozilla.org/en-US/docs/Web/API/FormData/Using_FormData_Objects
+// https://www.npmjs.com/package/body-parser#bodyparserurlencodedoptions
 app.use(parser.urlencoded({ extended: false }));
 
 // setup a route for our index page.
@@ -48,7 +49,7 @@ app.get('/about', (request, response) => {
 
 // create a route to submit our form
 // For our app the url is http://localhost:3000/submit
-// NOTE this is a POST not a GET there for "app.post"
+// NOTE this is a POST not a GET therefor "app.post"
 app.post('/submit', (request, response) => {
 
     // the object "request.body"

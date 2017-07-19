@@ -27,7 +27,7 @@ Once you have cloned this app locally you can `cd` into this project and complet
 So I would do this:    
 
 ```
-> cd /path/to/your/projects/folder   
+> cd ~/projects   
 > git clone https://github.com/kodosenshi/express-test-app.git   
 > cd express-test-app
 ```   
