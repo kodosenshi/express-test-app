@@ -4,7 +4,7 @@
 
 ### Clone this repo locally
 
-In order to run this application locally, clone it to your projects directly and then use the installation instructions below.   
+In order to run this application locally, clone it to your projects directory and then follow the installation instructions below.   
 
 ```
 > cd /path/to/your/projects/folder
