@@ -91,3 +91,15 @@ Open your browser and go to: [http://localhost:3000](http://localhost:3000)
 > npm install   
 > git pull origin master
 ```
+
+## To Checkout A Branch: For instance MVC   
+* `git fetch` to get all the latest branches
+* `git branch` to see all branches   
+* `git checkout branchname`
+
+To checkout `mvc` branch: 
+
+```
+> git fetch --all
+> git checkout mvc
+```
