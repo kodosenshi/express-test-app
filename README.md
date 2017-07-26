@@ -83,4 +83,11 @@ So my complete instructions would be:
 
 ## View Site  
 
-Open your browser and go to: [http://localhost:3000](http://localhost:3000)
+Open your browser and go to: [http://localhost:3000](http://localhost:3000)   
+
+## Update To See Changes 
+
+```
+> npm install   
+> git pull origin master
+```
