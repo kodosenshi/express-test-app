@@ -1,0 +1,178 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background: #db0909;
+  color: #8b8b8b;
+  font-family: 'Arial', sans-serif;
+}
+
+a {
+	color: #121212;
+	text-decoration: none;
+	border: 10px solid transparent;
+}
+
+a:hover {
+	border: 10px solid rgba(0, 0, 0, 0.1);
+}
+
+main {
+	position: relative;
+}
+
+h1 {
+  margin-top: 20px;
+	font-size: 3em;
+	font-weight: 700;
+	font-family: 'Zilla Slab', serif;
+}
+
+h2 {
+  margin-top: 20px;
+  font-size: 47px;
+  font-weight: 300;
+	font-family: 'Zilla Slab', serif;
+	color: #363636;
+  margin-bottom: -6px;
+}
+
+.articles__list {
+	padding: 16px;
+}
+
+.article-item {
+	list-style: none;
+	padding: 5%;
+	margin-bottom: 5%;
+	width: 100%;
+	background: #f7f7f7;
+	position: relative;
+}
+
+.article-item img {
+	width: 100%;
+	object-fit: cover;
+}
+
+.article-item p {
+	font-size: 11px;
+	line-height: 1.5;
+	margin: 1em 0;
+	max-width: 70%;
+}
+
+.article__detail-body {
+	line-height: 1.3;
+}
+
+.article__content {
+	padding: 15px;
+}
+
+.links,
+article {
+	max-width: 80%;
+	margin: 20px auto;
+}
+
+article {
+	background: white;
+	color: black;
+}
+
+article h1 {
+	margin-bottom: 20px;
+}
+
+article p {
+	margin: 20px 0;
+}
+
+article img {
+	width: 100%;
+}
+
+.links {
+	margin: 10px auto;
+}
+
+.links a {
+	color: white;
+	border: 0;
+	font-size: 12px;
+	margin-right: 10px;
+}
+
+.links a:hover {
+	border: 0;
+}
+
+@media (min-width: 768px) {
+	article {
+		margin: 60px auto;
+	}
+
+	.article__content {
+		padding: 40px;
+	}
+
+	.article-item {
+		width: 47%;
+		padding: 2%;
+		margin: 5%;
+	}
+
+	.articles__list {
+		display: flex;
+		justify-content: space-between;
+		padding: 16px;
+		top: 70px;
+		position: absolute;
+	}
+}

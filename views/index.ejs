@@ -1,24 +1,11 @@
-<style>
-  body {
-    font-family: arial, sans-serif;
-    color: grey;
-  }
-  input {
-    padding: 20px;
-    border: 1px solid;
-  }
-</style>
+<% include globals/head %>
 
-<a href="/about">About This Class</a>
+    <main>
+        <div class="articles__list">
+            <% articles.forEach(function(article) { %>
+            <%- include('partials/article-item', {article}); %>
+            <% }) %>
+        </div>
+    </main>
 
-<h1><%= title %></h1>
-<ul>
-  <% students.forEach(function(student){ %>
-    <li><%= student %></li>
-  <% }) %>
-</ul>
-
-<form action="/submit" method="POST">
-  <input type="text" name="color">
-  <input type="submit">
-</form>
+<% include globals/foot %>
