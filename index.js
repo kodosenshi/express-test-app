@@ -2,29 +2,37 @@
 // node based web apps.
 const express = require('express');
 
-// Remember node doesn't give us the body data from a POST request
-// we must use middleware for that, this package does that for us
-const parser = require('body-parser');
-
-const indexController = require('./controllers/index');
-const blogDetailController = require('./controllers/blogDetail');
-
 // create a new app
 const app = express();
+
+// Remember node doesn't give us the body data from a POST request
+// we must use middleware for that, this package does that for us
+// CHECKOUT VALIDATION https://github.com/ctavan/express-validator
+const parser = require('body-parser');
+const expressValidator = require('express-validator');
+
+app.use(parser.urlencoded({ extended: false }));
+app.use(parser.json());
+
+// Used for input validation - remember assume all input is bad!
+// so lets use a tool designed to make sure we're not saving
+// anything bad
+app.use(expressValidator());
 
 app.use(express.static('public'));
 
 // Tell our app we want to use the 'ejs' template rendering engine
 app.set('view engine', 'ejs');
 
-// store some article data we'll pass to our template
-// eventually we'll use an external data source like a Database
+const articlesController = require('./controllers/articles');
 
-app.use(parser.urlencoded({ extended: false }));
-
-indexController(app);
-blogDetailController(app);
+app.get('/', articlesController.get);
+app.get('/articles', articlesController.get);
+app.get('/articles/create', articlesController.new);
+app.post('/articles/create', articlesController.post);
+app.get('/articles/:id', articlesController.show);
+app.post('*', articlesController.notFound);
 
 const server = app.listen(8080, () => {
-    console.log('started')
+    console.log('started port 8080')
 });

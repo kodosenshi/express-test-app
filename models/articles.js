@@ -1,38 +1,55 @@
-module.exports = [
-    {
-        title: 'About Shaun',
-        author: 'Shaun',
-        image: 'https://unsplash.it/960/504',
-        description: `Sed ut unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam<p>eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.`,
-        link: '/about',
-        body: `
-            <p>Sed ut unde omnis iste natus error sit voluptatem 
-            accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae 
-            ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-            <p>Sed ut unde omnis iste natus error sit voluptatem 
-            accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae 
-            ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-            <p>Sed ut unde omnis iste natus error sit voluptatem 
-            accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae 
-            ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-        `,
-    },
-    {
-        title: 'My Schedule',
-        author: 'Shaun',
-        image: 'https://unsplash.it/960/503',
-        description: `Sed ut unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam<p>eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.`,
-        link: '/schedule',
-        body: `
-            <p>Sed ut unde omnis iste natus error sit voluptatem 
-            accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae 
-            ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-            <p>Sed ut unde omnis iste natus error sit voluptatem 
-            accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae 
-            ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-            <p>Sed ut unde omnis iste natus error sit voluptatem 
-            accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae 
-            ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-        `
+//https://www.npmjs.com/package/jsonfile
+const jsonfile = require('jsonfile');
+
+// =================================================
+// SAVE A NEW ARTICLE
+const save = function (data, callback) {
+    const article = {
+        id: new Date().getTime(),
+        title: data.title,
+        image: data.url,
+        body: data.body,
+        description: data.body.substr(0, 100)
     }
-];
+    get((err, articles) => {
+        if (err) {
+            return callback(err);
+        }
+
+        try {
+            articles.push(article)
+        } catch (err) {
+            return callback(err);
+        }
+        
+        jsonfile.writeFile('./models/articles.json', articles, {spaces: 2}, callback);
+    });
+    //
+}
+
+// =================================================
+// GET ALL ARTICLES
+const get = function (callback) {
+    jsonfile.readFile('./models/articles.json', callback);
+}
+
+// =================================================
+// GET 1 ARTICLE BY ID
+const getArticleById = function (id, callback) {
+
+    // we have a function that gets all the articles already so why no just use that
+    // for 1 article though we need to find only the article we want
+    // so we'll use the filter function of an array which says
+    // return everything from the array where the condition is true.
+    // in this case we are saying if the article id matches the id we're searching for
+    // then return that article.
+    get((err, list) => {
+        callback(err, list.filter(function(article) {
+            return article.id === id;
+        }).pop());
+    });
+}
+
+module.exports.save = save;
+module.exports.get = get;
+module.exports.getArticleById = getArticleById;

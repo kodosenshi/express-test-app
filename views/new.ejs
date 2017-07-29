@@ -1,0 +1,30 @@
+<% include globals/head %>
+
+    <div class="links">
+      <a href="/">Home</a>
+    </div>
+
+    <article>
+      <div class='article__content'>
+        <h1>Add New Article</h1>
+
+        <% if (typeof errors !== 'undefined') { %>
+          <div class="error__block">
+            <% errors.forEach(function(error) { %>
+              <div class="error"><%= error.msg %></div>
+            <% }) %>
+          </div>
+        <% } %>
+
+        <form action="/articles/create" method="POST">
+          <input type="text" name="title" required placeholder="Title">
+          <input type="url" name="url" value="https://unsplash.it/960/504" placeholder="Image url: https://unsplash.it/960/504">
+          <div class="article__detail-body">
+            <textarea name="body" required placeholder="enter article here"></textarea>
+          </div>
+          <input type="submit">
+        </form>
+      </div>
+    </article>
+    
+<% include globals/foot %>

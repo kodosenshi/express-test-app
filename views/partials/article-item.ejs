@@ -1,5 +1,5 @@
-<a href="<%= article.link %>" class="article-item">
-  <img src="<%= article.image %>" alt="<%= article.title %>">
+<a href="/articles/<%= article.id %>" class="article-item">
+  <img src="<%- article.image %>" alt="<%= article.title %>">
   <h2><%= article.title %></h2>
   <p><%- article.description %></p>
 </a>
