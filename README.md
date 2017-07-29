@@ -103,4 +103,5 @@ To checkout `mvc` branch:
 > git fetch --all
 > git checkout mvc
 > npm install  
+> nodemon
 ```
