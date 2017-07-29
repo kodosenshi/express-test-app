@@ -34,7 +34,7 @@ app.get('/articles', articlesController.get);
 app.get('/articles/create', articlesController.new);
 app.post('/articles/create', articlesController.post);
 app.get('/articles/:id', articlesController.show);
-app.post('*', articlesController.notFound);
+app.get('*', articlesController.notFound);
 
 const server = app.listen(port, () => {
     console.log(`started port ${port}`)
