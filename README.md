@@ -87,9 +87,9 @@ Open your browser and go to: [http://localhost:8080](http://localhost:8080)
 
 ## Update To See Changes 
 
-```
-> npm install   
+``` 
 > git pull origin master
+> npm install  
 ```
 
 ## To Checkout A Branch: For instance MVC   
@@ -102,4 +102,5 @@ To checkout `mvc` branch:
 ```
 > git fetch --all
 > git checkout mvc
+> npm install  
 ```
