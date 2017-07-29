@@ -1,12 +1,12 @@
 {
-  "name": "@hyfn/forms",
+  "name": "nycda/articles",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Shaun Collins <shaun@hyfn.com> (http://hyfn.com)",
+  "author": "Shaun Collins",
   "license": "ISC",
   "dependencies": {
     "body-parser": "1.17.2",
