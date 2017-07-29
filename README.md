@@ -83,7 +83,7 @@ So my complete instructions would be:
 
 ## View Site  
 
-Open your browser and go to: [http://localhost:3000](http://localhost:3000)   
+Open your browser and go to: [http://localhost:8080](http://localhost:8080)   
 
 ## Update To See Changes 
 
