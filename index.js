@@ -5,6 +5,8 @@ const express = require('express');
 // create a new app
 const app = express();
 
+const port = process.env.PORT || 8080;
+
 // Remember node doesn't give us the body data from a POST request
 // we must use middleware for that, this package does that for us
 // CHECKOUT VALIDATION https://github.com/ctavan/express-validator
@@ -34,6 +36,6 @@ app.post('/articles/create', articlesController.post);
 app.get('/articles/:id', articlesController.show);
 app.post('*', articlesController.notFound);
 
-const server = app.listen(8080, () => {
-    console.log('started port 8080')
+const server = app.listen(port, () => {
+    console.log(`started port ${port}`)
 });
