@@ -11,6 +11,7 @@ const app = express();
 const parser = require('body-parser');
 const expressValidator = require('express-validator');
 
+// lets get the body content from body urlencoded data (like formData) and json
 app.use(parser.urlencoded({ extended: false }));
 app.use(parser.json());
 

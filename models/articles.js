@@ -4,12 +4,13 @@ const jsonfile = require('jsonfile');
 // =================================================
 // SAVE A NEW ARTICLE
 const save = function (data, callback) {
+    const regex = /(&nbsp;|<([^>]+)>)/ig;
     const article = {
         id: new Date().getTime(),
         title: data.title,
         image: data.url,
         body: data.body,
-        description: data.body.substr(0, 100)
+        description: data.body.replace(regex, "").substr(0, 200)
     }
     get((err, articles) => {
         if (err) {
