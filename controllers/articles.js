@@ -20,7 +20,7 @@ module.exports.delete = function(request, response, callback) {
 			return response.render('404', {message: message});
 		}
 
-		// after delete redirect to the list page (index)
+		// after delete call the callback function
 		callback();
 	});
 }
