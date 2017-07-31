@@ -1,5 +1,13 @@
-<a href="/articles/<%= article.id %>" class="article-item">
-  <img src="<%- article.image %>" alt="<%= article.title %>">
-  <h2><%= article.title %></h2>
-  <p><%- article.description %></p>
-</a>
+<div class="article-item">
+  <a href="/articles/<%= article.id %>">
+    <img src="<%- article.image %>" alt="<%= article.title %>">
+    <h2><%= article.title %></h2>
+    <p><%- article.description %></p>
+  </a>
+  <form action="/articles/<%= article.id %>" method="POST">
+    <input class="article-delete-btn" type="submit" value="Delete Me From Form :)">
+    <input name="_method" type="hidden" value="DELETE">
+  </form>
+
+  <button data-action="delete" data-id="<%= article.id %>">Delete Me From Ajax</button>
+</div>

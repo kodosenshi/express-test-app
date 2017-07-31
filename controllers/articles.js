@@ -8,6 +8,24 @@ module.exports.notFound = function(request, response) {
 }
 
 // ================================================
+// (Delete) an article from the model
+module.exports.delete = function(request, response, callback) {
+	const id = request.params.id;
+
+	articles.deleteArticleById(parseInt(id), function(err, list) {
+		if (err) {
+			const message = err.errno === -2 ? defaultMessage : 'Try again later';
+
+			// make sure we only render once!!! so return
+			return response.render('404', {message: message});
+		}
+
+		// after delete redirect to the list page (index)
+		callback();
+	});
+}
+
+// ================================================
 // (Get) a list of articles from the model
 module.exports.get = function(request, response) {
 	articles.get(function(err, list) {
@@ -70,7 +88,6 @@ module.exports.post = function(request, response) {
 	// check if there are errors else all good!!
 	request.getValidationResult().then(function(result) {
 		if (!result.isEmpty()) {
-			console.log(result.array())
       return response.render('new', {title: 'Create new article', errors: result.array() }) ;
 		}
 

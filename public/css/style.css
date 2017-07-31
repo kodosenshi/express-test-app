@@ -55,11 +55,6 @@ body {
 a {
 	color: #121212;
 	text-decoration: none;
-	border: 10px solid transparent;
-}
-
-a:hover {
-	border: 10px solid rgba(0, 0, 0, 0.1);
 }
 
 input, textarea {
@@ -128,8 +123,17 @@ h2 {
 	width: 100%;
 	background: #f7f7f7;
 	position: relative;
+	border: 10px solid transparent;
 }
 
+.article-item:hover {
+	border: 10px solid rgba(0, 0, 0, 0.1);
+}
+
+.article-item.fade {
+	transition: opacity 0.3s ease;
+	opacity: 0;
+}
 
 .article-item img {
 	width: 100%;
@@ -174,7 +178,7 @@ article img {
 	width: 100%;
 }
 
-.article-item {
+.article-item a {
 	display: block;
 }
 
@@ -191,6 +195,10 @@ article img {
 
 .links a:hover {
 	border: 0;
+}
+
+.article-delete-btn {
+	width: auto;
 }
 
 @media (min-width: 768px) {

@@ -29,6 +29,32 @@ const save = function (data, callback) {
 }
 
 // =================================================
+// DELETE AN ARTICLE
+const deleteArticleById = function (id, callback) {
+    get((err, articles) => {
+        if (err) {
+            return callback(err);
+        }
+
+        articles.map((a) => console.log(a.id))
+
+        for (var index = 0; index < articles.length; index++) {
+            var article = articles[index];
+
+            if (article.id === id) {
+                // remove that article from the array
+                articles.splice(index, 1);
+
+                // save the articles
+                jsonfile.writeFile('./models/articles.json', articles, {spaces: 2}, callback);
+                break;
+            }
+        }
+    });
+}
+
+
+// =================================================
 // GET ALL ARTICLES
 const get = function (callback) {
     jsonfile.readFile('./models/articles.json', callback);
@@ -54,3 +80,4 @@ const getArticleById = function (id, callback) {
 module.exports.save = save;
 module.exports.get = get;
 module.exports.getArticleById = getArticleById;
+module.exports.deleteArticleById = deleteArticleById;
