@@ -36,8 +36,6 @@ const deleteArticleById = function (id, callback) {
             return callback(err);
         }
 
-        articles.map((a) => console.log(a.id))
-
         for (var index = 0; index < articles.length; index++) {
             var article = articles[index];
 
