@@ -222,6 +222,7 @@ article img {
 		flex-wrap: wrap;
 		padding: 16px;
 		top: 70px;
+		width: 100%;
 		position: absolute;
 	}
 }

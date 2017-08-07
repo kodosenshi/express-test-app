@@ -2,10 +2,9 @@
 const jsonfile = require('jsonfile');
 
 //https://node-postgres.com/
-// We're not following a recommended structure, just a simple structure to get started
 // https://node-postgres.com/guides/project-structure
 
-const pg = require('./pg_connection');
+const pg = require('../db');
 
 // =================================================
 // SAVE A NEW ARTICLE
@@ -20,7 +19,7 @@ const save = function(data, callback) {
 
   const insertSql = 'INSERT INTO articles(title, image, body, description) VALUES ($1, $2, $3, $4)';
 
-  pg.client.query(insertSql, articleInsert, (err, res) => {
+  pg.query(insertSql, articleInsert, (err, res) => {
     callback(err, res);
   })
 }
@@ -28,7 +27,7 @@ const save = function(data, callback) {
 // =================================================
 // DELETE AN ARTICLE
 const deleteArticleById = function(id, callback) {
-  pg.client.query('delete from articles where id = $1', [id], (err, res) => {
+  pg.query('delete from articles where id = $1', [id], (err, res) => {
     callback(err, res);
   })
 }
@@ -36,7 +35,7 @@ const deleteArticleById = function(id, callback) {
 // =================================================
 // GET ALL ARTICLES
 const get = function(callback) {
-  pg.client.query('select * from articles', (err, res) => {
+  pg.query('select * from articles', null, (err, res) => {
     if (err) {
       callback(err)
     } else {
@@ -48,7 +47,7 @@ const get = function(callback) {
 // =================================================
 // GET 1 ARTICLE BY ID
 const getArticleById = function(id, callback) {
-  pg.client.query('select * from articles where id = $1 limit 1', [id], (err, res) => {
+  pg.query('select * from articles where id = $1 limit 1', [id], (err, res) => {
     if (err) {
       callback(err);
     } else {
