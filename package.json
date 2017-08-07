@@ -7,6 +7,10 @@
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "engines": {
+    "node": ">=5.10.1",
+    "npm": ">=4.6.1"
+  },
   "author": "Shaun Collins",
   "license": "ISC",
   "dependencies": {
@@ -15,6 +19,6 @@
     "express": "4.15.3",
     "express-validator": "3.2.1",
     "jsonfile": "3.0.1",
-    "pug": "2.0.0-rc.2"
+    "pg": "7.1.0"
   }
 }
