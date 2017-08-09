@@ -1,15 +1,13 @@
-const pg = require('pg');
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize('postgres://shauncollins:@localhost/blog');
 
-const client = new pg.Pool({
-  user: 'shauncollins',
-  host: '127.0.0.1',
-  database: 'blog',
-  password: '',
-  port: 5432,
-});
-
-module.exports.query = (queryString, queryParameters, callback) => {
-  client.query(queryString, queryParameters, (err, res) => {
-    callback(err, res);
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
   })
-}
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
+
+module.exports = sequelize;

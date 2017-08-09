@@ -19,6 +19,8 @@
     "express": "4.15.3",
     "express-validator": "3.2.1",
     "jsonfile": "3.0.1",
-    "pg": "7.1.0"
+    "pg": "7.1.0",
+    "pg-hstore": "2.3.2",
+    "sequelize": "4.4.2"
   }
 }

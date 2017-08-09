@@ -1,5 +1,5 @@
 const util = require('util');
-const articles = require('../models/articles');
+const articles = require('../models/articles_repo');
 const defaultMessage = 'Sorry having a problem finding those pesky articles.';
 const defaultTitle = `Shaun's Blog`;
 
