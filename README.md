@@ -92,7 +92,7 @@ Open your browser and go to: [http://localhost:8080](http://localhost:8080)
 > npm install  
 ```
 
-## To Checkout A Branch: For instance MVC   
+## To Checkout A Branch: For instance MVC-Sequelize  
 * `git fetch` to get all the latest branches
 * `git branch` to see all branches   
 * `git checkout branchname`
@@ -101,7 +101,7 @@ To checkout `mvc` branch:
 
 ```
 > git fetch --all
-> git checkout mvc
+> git checkout mvc-sequelize
 > npm install  
 > nodemon
 ```
