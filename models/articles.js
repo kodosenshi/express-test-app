@@ -8,7 +8,7 @@ const Article = sequelize.define('article', {
     description: Sequelize.STRING,
     body: Sequelize.STRING,
     featured: { type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false},
-    showinmenu: { type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false, field: 'showinmenu'},
+    showinmenu: { type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false},
     published: { type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false},
 }, {
   timestamps: false,
