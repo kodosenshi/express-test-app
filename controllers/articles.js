@@ -15,8 +15,6 @@ module.exports.notFound = function(request, response) {
 module.exports.delete = function(request, response, callback) {
 	const id = request.params.id;
 
-	const article = 
-
 	articles.deleteArticleById(parseInt(id), function(err, article) {
 		if (err) {
 			const message = err.errno === -2 ? defaultMessage : 'Try again later';
