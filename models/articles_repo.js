@@ -1,3 +1,4 @@
+const del = require('delete');
 const Article = require('./articles');
 
 // =================================================
@@ -6,6 +7,7 @@ const save = function(data, callback) {
   const regex = /(&nbsp;|<([^>]+)>)/ig;
 
    Article.create({
+      uploaded: data.uploaded || false,
       title: data.title,
       image: data.url,
       description: data.body.replace(regex, "").substr(0, 200),
@@ -20,15 +22,22 @@ const save = function(data, callback) {
 // =================================================
 // DELETE AN ARTICLE
 const deleteArticleById = function(id, callback) {
-  Article.destroy({
-    where: {
-      id: id,
+  this.getArticleById(id, (err, article) => {
+    if (err) {
+      return callback(err);
     }
-  }).then(articles => {
-    callback(null, articles);
-  }, err => {
-    callback(err);
-  });
+    article.destroy().then(() => {
+      if (article.uploaded) {
+        del(`public/${article.image}`).then(() => {
+          callback(null);
+        })
+      } else {
+        callback(null);
+      }
+    }, err => {
+      callback(err);
+    });
+  })
 }
 
 // =================================================

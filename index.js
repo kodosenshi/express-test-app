@@ -1,6 +1,20 @@
 // require Express, the framework we'll use for building
 // node based web apps.
 const express = require('express');
+const path = require('path');
+
+// handle file uploads
+const multer  = require('multer');
+const storage = multer.diskStorage({ 
+    destination: function(req, file, cb) {
+        cb(null, './public/uploads');
+    },
+    filename: function(req, file, cb) {
+        const extension = (path.extname(file.originalname)).toLowerCase();
+        cb(null, file.fieldname + '-' + Date.now() + extension)
+    } 
+});
+const uploadRequestHandler = multer ({ storage: storage });
 
 // create a new app
 const app = express();
@@ -20,7 +34,14 @@ app.use(parser.json());
 // Used for input validation - remember assume all input is bad!
 // so lets use a tool designed to make sure we're not saving
 // anything bad
-app.use(expressValidator());
+app.use(expressValidator({
+    customValidators: {
+      isImage: function(value, filename) {
+        const extension = (path.extname(filename)).toLowerCase();
+        return ['.gif', '.jpg', 'jpeg', '.png', '.svg'].indexOf(extension) !== -1;
+      }
+    }
+  }));
 
 app.use(express.static('public'));
 
@@ -32,7 +53,7 @@ const articlesController = require('./controllers/articles');
 app.get('/', articlesController.get);
 app.get('/articles', articlesController.get);
 app.get('/articles/create', articlesController.new);
-app.post('/articles/create', articlesController.post);
+app.post('/articles/create', uploadRequestHandler.single('image'), articlesController.post);
 
 // to delete in a form we need to use POST, why?
 // https://stackoverflow.com/questions/165779/are-the-put-delete-head-etc-methods-available-in-most-web-browsers

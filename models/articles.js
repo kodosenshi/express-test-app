@@ -7,6 +7,7 @@ const Article = sequelize.define('article', {
     image: Sequelize.STRING,
     description: Sequelize.STRING,
     body: Sequelize.STRING,
+    uploaded: Sequelize.BOOLEAN,
     featured: { type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false},
     showinmenu: { type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false},
     published: { type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false},

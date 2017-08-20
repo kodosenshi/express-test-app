@@ -16,9 +16,10 @@
           </div>
         <% } %>
 
-        <form action="/articles/create" method="POST">
+        <form action="/articles/create" enctype="multipart/form-data" method="POST">
           <input type="text" name="title" required placeholder="Title">
           <input type="url" name="url" value="https://unsplash.it/960/504" placeholder="Image url: https://unsplash.it/960/504">
+          <input type="file" name="image">
           <div class="article__detail-body">
             <textarea name="body" required placeholder="enter article here"></textarea>
           </div>
