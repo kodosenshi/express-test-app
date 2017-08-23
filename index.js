@@ -1,9 +1,10 @@
-// require Express, the framework we'll use for building
-// node based web apps.
 const express = require('express');
+const session = session = require('express-session');
 const path = require('path');
+const passport = require('passport');
 
-// handle file uploads
+require('./strategies/passport-local')(passport);
+
 const multer  = require('multer');
 
 const storage = multer.diskStorage({ 
@@ -16,27 +17,21 @@ const storage = multer.diskStorage({
     } 
 });
 
-
 const uploadRequestHandler = multer ({ storage: storage });
 
-// create a new app
 const app = express();
-
 const port = process.env.PORT || 8080;
 
-// Remember node doesn't give us the body data from a POST request
-// we must use middleware for that, this package does that for us
-// CHECKOUT VALIDATION https://github.com/ctavan/express-validator
 const parser = require('body-parser');
-const expressValidator = require('express-validator');
+const urlencodedParser = parser.urlencoded({ extended: false });
 
-// lets get the body content from body urlencoded data (like formData) and json
-app.use(parser.urlencoded({ extended: false }));
+app.use(session({ secret: 'the cat said woof' }));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(parser.json());
 
-// Used for input validation - remember assume all input is bad!
-// so lets use a tool designed to make sure we're not saving
-// anything bad
+const expressValidator = require('express-validator');
+
 app.use(expressValidator({
     customValidators: {
       isImage: function(value, filename) {
@@ -48,18 +43,24 @@ app.use(expressValidator({
 
 app.use(express.static('public'));
 
-// Tell our app we want to use the 'ejs' template rendering engine
 app.set('view engine', 'ejs');
 
 const articlesController = require('./controllers/articles');
+const usersController = require('./controllers/users');
+const sessionsController = require('./controllers/sessions');
 
 app.get('/', articlesController.get);
 app.get('/articles', articlesController.get);
-app.get('/articles/create', articlesController.new);
+app.get('/articles/create', sessionsController.isAuthenticated, articlesController.new);
 app.post('/articles/create', uploadRequestHandler.single('image'), articlesController.post);
+app.post('/user/signup', urlencodedParser, passport.authenticate('local-signup'), usersController.new);
+app.get('/login', sessionsController.login);
+app.post('/login', urlencodedParser, (req, res, next) => {
+    passport.authenticate('local-login', (err, user, info) => {
+        sessionsController.new(req, res, err, user)
+    })(req, res, next);
+});
 
-// to delete in a form we need to use POST, why?
-// https://stackoverflow.com/questions/165779/are-the-put-delete-head-etc-methods-available-in-most-web-browsers
 app.post('/articles/:id', (request, response) => {
     // if _method == DELETE
     if (request.body._method === 'DELETE') {
@@ -72,8 +73,6 @@ app.post('/articles/:id', (request, response) => {
     // if anything else
     response.redirect('/');
 });
-
-// delete is only handled from API calls
 app.delete('/articles/:id', (request, response) => {
     return articlesController.delete(request, response, () => {
         // we're not handling errors

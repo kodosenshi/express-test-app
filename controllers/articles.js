@@ -1,6 +1,5 @@
 const util = require('util');
 const path = require('path');
-const del = require('delete');
 
 const articles = require('../models/articles_repo');
 const defaultMessage = 'Sorry having a problem finding those pesky articles.';
@@ -83,8 +82,6 @@ module.exports.post = function(request, response, next) {
 		.notEmpty()
 	
 	if (request.file) {
-
-		console.log(request.file)
 
 		// validate the image url
 		request

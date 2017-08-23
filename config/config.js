@@ -1,23 +1,19 @@
 module.exports = {
   "development": {
-    "username": "root",
+    "username": "shauncollins",
     "password": null,
-    "database": "database_development",
+    "database": "blog",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
-    "username": "root",
+    "username": "shauncollins",
     "password": null,
-    "database": "database_test",
+    "database": "blog",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": process.env.PG_DATABASE,
-    "host": process.env.PG_HOST,
-    "dialect": "postgres"
+    "use_env_variable": "DATABASE_URL"
   }
 }
