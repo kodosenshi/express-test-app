@@ -5,6 +5,7 @@ const path = require('path');
 
 // handle file uploads
 const multer  = require('multer');
+
 const storage = multer.diskStorage({ 
     destination: function(req, file, cb) {
         cb(null, './public/uploads');
@@ -14,6 +15,8 @@ const storage = multer.diskStorage({
         cb(null, file.fieldname + '-' + Date.now() + extension)
     } 
 });
+
+
 const uploadRequestHandler = multer ({ storage: storage });
 
 // create a new app
@@ -38,7 +41,7 @@ app.use(expressValidator({
     customValidators: {
       isImage: function(value, filename) {
         const extension = (path.extname(filename)).toLowerCase();
-        return ['.gif', '.jpg', 'jpeg', '.png', '.svg'].indexOf(extension) !== -1;
+        return ['.gif', '.jpg', '.jpeg', '.png', '.svg'].indexOf(extension) !== -1;
       }
     }
   }));

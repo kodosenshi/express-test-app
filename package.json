@@ -14,8 +14,10 @@
   "author": "Shaun Collins",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "2.100.0",
     "body-parser": "1.17.2",
     "delete": "1.1.0",
+    "dotenv": "4.0.0",
     "ejs": "2.5.6",
     "express": "4.15.3",
     "express-validator": "3.2.1",

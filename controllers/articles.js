@@ -6,6 +6,8 @@ const articles = require('../models/articles_repo');
 const defaultMessage = 'Sorry having a problem finding those pesky articles.';
 const defaultTitle = `Shaun's Blog`;
 
+const S3_BUCKET = process.env.S3_BUCKET;
+
 module.exports.notFound = function(request, response) {
 	return response.render('404', {message: defaultMessage});
 }
@@ -81,6 +83,8 @@ module.exports.post = function(request, response, next) {
 		.notEmpty()
 	
 	if (request.file) {
+
+		console.log(request.file)
 
 		// validate the image url
 		request
