@@ -53,7 +53,13 @@ app.get('/', articlesController.get);
 app.get('/articles', articlesController.get);
 app.get('/articles/create', sessionsController.isAuthenticated, articlesController.new);
 app.post('/articles/create', uploadRequestHandler.single('image'), articlesController.post);
-app.post('/user/signup', urlencodedParser, passport.authenticate('local-signup'), usersController.new);
+app.post('/user/signup', urlencodedParser, urlencodedParser, (req, res, next) => {
+    passport.authenticate('local-signup', (err, user) => {
+        console.log('===========', err)
+        usersController.create(req, res, err)
+    })(req, res, next);
+});
+app.get('/user/signup', usersController.new);
 app.get('/login', sessionsController.login);
 app.post('/login', urlencodedParser, (req, res, next) => {
     passport.authenticate('local-login', (err, user, info) => {

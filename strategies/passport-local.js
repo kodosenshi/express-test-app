@@ -2,7 +2,6 @@ const bcrypt = require('bcrypt');
 const LocalStrategy = require('passport-local').Strategy;
 const UserModel = require('../models/user');
 
-
 function processSignupCallback(request, email, password, done) {
   // first search to see if a user exists in our system with that email
   UserModel.findOne({
@@ -20,11 +19,16 @@ function processSignupCallback(request, email, password, done) {
       const userToCreate = request.body; // make this more secure, VALIDATE and CLEAN
 
       bcrypt.hash(userToCreate.password, 10, (err, hash) => {
+        if (err) {
+          return done(new Error('unable to create user: 1001'), false);
+        }
         userToCreate.password = hash;
         UserModel.create(userToCreate)
         .then(function(createdRecord) {
             createdRecord.password = undefined;
             return done(null, createdRecord);
+        }, function(err) {
+          return done(new Error('unable to create user'), false);
         });
       });
     } 

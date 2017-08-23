@@ -1,0 +1,38 @@
+<% include globals/head %>
+
+    <div class="links">
+      <a href="/">Home</a>
+    </div>
+
+    <main>
+        <div class="login">
+          <h1>New User</h1>
+          <% if (typeof error !== 'undefined') { %>
+            <div class="error"><%= error %></div>
+          <% } %>
+
+          <form action="/user/signup" method="POST">
+            <div class="row">
+              <input type="text" name="firstName" placeholder="First Name" />
+            </div>
+
+            <div class="row">
+                <input type="text" name="lastName" placeholder="Last Name" />
+              </div>
+
+            <div class="row">
+              <input type="email" name="email" placeholder="email" />
+            </div>
+
+            <div class="row">
+              <input type="password" name="password" placeholder="password" />
+            </div>
+
+            <div class="row">
+                <input type="submit" value="Submit" />
+              </div>
+          </form>
+        </div>
+    </main>
+
+<% include globals/foot %>
