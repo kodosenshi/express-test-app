@@ -45,6 +45,8 @@ app.set('view engine', 'ejs');
 const articlesController = require('./controllers/articles');
 const usersController = require('./controllers/users');
 const sessionsController = require('./controllers/sessions');
+
+// middleware for routes where users should be logged-in
 const isAuthenticated = sessionsController.isAuthenticated;
 
 // articles
@@ -55,6 +57,7 @@ app.post('/articles/create', isAuthenticated, uploadRequestHandler.single('image
 app.post('/articles/:id', urlencodedParser, articlesController.delete);
 app.delete('/articles/:id', articlesController.delete);
 app.get('/articles/:id', articlesController.show);
+app.get('/sign-s3', articlesController.signS3);
 
 // users
 app.post('/user/signup', urlencodedParser, (req, res, next) => usersController.create(req, res, next, passport));

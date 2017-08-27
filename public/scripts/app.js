@@ -19,6 +19,54 @@ function deleteArticleById(id, elem) {
   }, 300);
 }
 
+function uploadFile(file, signedRequest, url){
+  const xhr = new XMLHttpRequest();
+  xhr.open('PUT', signedRequest);
+  xhr.onreadystatechange = () => {
+    if(xhr.readyState === 4){
+      if(xhr.status === 200){
+        document.getElementById('preview').src = url;
+        document.querySelector('[name=url]').value = url;
+      }
+      else{
+        alert('Could not upload file.');
+      }
+    }
+  };
+  xhr.send(file);
+}
+
+function getSignedRequest(file){
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}`);
+  xhr.onreadystatechange = () => {
+    if(xhr.readyState === 4){
+      if(xhr.status === 200){
+        const response = JSON.parse(xhr.responseText);
+        uploadFile(file, response.signedRequest, response.url);
+      }
+      else{
+        alert('Could not get signed URL.');
+      }
+    }
+  };
+  xhr.send();
+}
+
+function handleFileChanges(e) {
+  const files = e.target.files;
+  const file = files[0];
+  if(file == null){
+    return alert('No file selected.');
+  }
+  getSignedRequest(file);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+  const imageField = document.querySelector('[name=image]');
   document.body.addEventListener('click', handleBodyClick);
+
+  if (imageField) {
+    imageField.addEventListener('change', handleFileChanges);
+  }
 })

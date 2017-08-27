@@ -1,3 +1,5 @@
+const aws = require('aws-sdk');
+
 const articles = require('../models/articles_repo');
 const defaultMessage = 'Sorry having a problem finding those pesky articles.';
 const defaultTitle = `Shaun's Blog`;
@@ -148,4 +150,30 @@ module.exports.post = function(request, response, next) {
 // review anything thats saved
 module.exports.new = function(request, response) {
 	response.render('new', {title: 'Create new article'}) ;
+}
+
+module.exports.signS3 = function(req, res) {
+	const s3 = new aws.S3();
+  const fileName = req.query['file-name'];
+  const fileType = req.query['file-type'];
+  const s3Params = {
+    Bucket: S3_BUCKET,
+    Key: fileName,
+    Expires: 60,
+    ContentType: fileType,
+    ACL: 'public-read'
+  };
+
+  s3.getSignedUrl('putObject', s3Params, (err, data) => {
+    if(err){
+      console.log(err);
+      return res.end();
+    }
+    const returnData = {
+      signedRequest: data,
+      url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
+    };
+    res.write(JSON.stringify(returnData));
+    res.end();
+  });
 }

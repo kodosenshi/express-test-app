@@ -242,6 +242,11 @@ article img {
 	color: red;
 }
 
+#preview {
+	width: 100%;
+	max-width: 300px;
+}
+
 @media (min-width: 768px) {
 	.login {
 		padding: 60px;
