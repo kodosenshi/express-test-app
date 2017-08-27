@@ -2,6 +2,8 @@ const articles = require('../models/articles_repo');
 const defaultMessage = 'Sorry having a problem finding those pesky articles.';
 const defaultTitle = `Shaun's Blog`;
 
+const S3_BUCKET = process.env.S3_BUCKET;
+
 module.exports.notFound = function(request, response) {
 	return response.render('404', {message: defaultMessage});
 }
@@ -109,7 +111,7 @@ module.exports.post = function(request, response, next) {
 		// SANITIZE USER INPUT - ALWAYS!!!!!!
 		// rely on the tools of the libraries you're using!
 		request.sanitizeBody('title').escape();
-		request.sanitizeBody('url').escape();
+		request.sanitizeBody('url');
 		request.sanitizeParams('body').escape();
 
 		if (!request.file) {
@@ -119,7 +121,7 @@ module.exports.post = function(request, response, next) {
 		const input = {
 			uploaded: !!(request.file && request.file.filename),
 			title: request.body.title,
-			url: request.file ? request.file.path.split('public').pop() : request.body.url,
+			url: request.file ? encodeURI(request.file.path.split('public').pop()) : encodeURI(request.body.url),
 			body: request.body.body
 		}
 
