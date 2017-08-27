@@ -27,6 +27,7 @@ function uploadFile(file, signedRequest, url){
       if(xhr.status === 200){
         document.getElementById('preview').src = url;
         document.querySelector('[name=url]').value = url;
+        document.querySelector('[name=image]').value='';
       }
       else{
         alert('Could not upload file.');
