@@ -1,5 +1,5 @@
 const express = require('express');
-const session = session = require('express-session');
+const session = require('express-session');
 const path = require('path');
 const passport = require('passport');
 
