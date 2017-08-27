@@ -13,7 +13,7 @@ function processSignupCallback(request, email, password, done) {
   .then(function(user) {
     if (user) {
       // user exists call done() passing null and false
-      return done(null, false);
+      return done(new Error('Email exists'), false);
     } else {
       // create the new user
       const userToCreate = request.body; // make this more secure, VALIDATE and CLEAN
@@ -44,14 +44,21 @@ function processLoginCallback(email, password, done) {
   })
   .then(function(user) {
     if (!user) {
-        return done(new Error('user not found'), null)
+        return done(null, false, 'User not found')
     }
     // make sure the password they provided matches what we have
     // (think about this one, before moving forward)
     bcrypt.compare(password, user.password, function(err, result) {
         user.password = undefined;
-        return result ? done(null, user) : done(null, false);
+        if (err) return done(err);
+        if (result === false) {
+          return done(null, false, 'User not found');
+        }
+        return done(null, user);
     });
+
+  }, function(err) {
+    return done(err, null)
   }); 
 }
 
@@ -61,9 +68,11 @@ module.exports = function(passport) {
   });
 
   passport.deserializeUser(function(id, done) {
-    UserModel.findById(id, function(err, user) {
-      done(err, user);
-    });
+    UserModel.findById(id).then(function(user) {
+      done(null, user);
+    }, function(err) {
+      done(err)
+    })
   });
 
   passport.use('local-signup', new LocalStrategy({
@@ -74,6 +83,6 @@ module.exports = function(passport) {
 
   passport.use('local-login', new LocalStrategy({
     usernameField : 'email',
-    passwordField : 'password',
+    passwordField : 'password'
   }, processLoginCallback));
 };

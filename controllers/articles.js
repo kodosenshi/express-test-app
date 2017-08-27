@@ -1,11 +1,6 @@
-const util = require('util');
-const path = require('path');
-
 const articles = require('../models/articles_repo');
 const defaultMessage = 'Sorry having a problem finding those pesky articles.';
 const defaultTitle = `Shaun's Blog`;
-
-const S3_BUCKET = process.env.S3_BUCKET;
 
 module.exports.notFound = function(request, response) {
 	return response.render('404', {message: defaultMessage});
@@ -13,8 +8,16 @@ module.exports.notFound = function(request, response) {
 
 // ================================================
 // (Delete) an article from the model
-module.exports.delete = function(request, response, callback) {
+module.exports.delete = function(request, response) {
 	const id = request.params.id;
+
+	// default callback is to redirect after form delete
+	var callback = () => response.redirect('/');
+
+	// for ajax delete repond with json
+	if (request.body._method !== 'DELETE') {
+		callback = () => response.json({"success": true});
+	}
 
 	articles.deleteArticleById(parseInt(id), function(err, article) {
 		if (err) {
@@ -24,7 +27,6 @@ module.exports.delete = function(request, response, callback) {
 			return response.render('404', {message: message});
 		}
 
-		// after delete call the callback function
 		callback();
 	});
 }
@@ -32,6 +34,7 @@ module.exports.delete = function(request, response, callback) {
 // ================================================
 // (Get) a list of articles from the model
 module.exports.get = function(request, response) {
+	const user = request.user || undefined;
 	articles.get(function(err, list) {
 		if (err) {
 			const message = err.errno === -2 ? defaultMessage : 'Try again later';
@@ -39,7 +42,7 @@ module.exports.get = function(request, response) {
 			// make sure we only render once!!! so return
 			return response.render('404', {message: message});
 		}
-		response.render('index', {articles: list, title: defaultTitle});
+		response.render('index', {articles: list, title: defaultTitle, user: user});
 	})
 }
 

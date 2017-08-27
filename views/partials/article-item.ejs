@@ -4,10 +4,13 @@
     <h2><%= article.title %></h2>
     <p><%- article.description %></p>
   </a>
-  <form action="/articles/<%= article.id %>" method="POST">
-    <input class="article-delete-btn" type="submit" value="Delete Me From Form :)">
-    <input name="_method" type="hidden" value="DELETE">
-  </form>
 
-  <button data-action="delete" data-id="<%= article.id %>">Delete Me From Ajax</button>
+  <% if (typeof user !== 'undefined') { %>
+    <form action="/articles/<%= article.id %>" method="POST">
+      <input class="article-delete-btn" type="submit" value="Delete Me From Form :)">
+      <input name="_method" type="hidden" value="DELETE">
+    </form>
+
+    <button data-action="delete" data-id="<%= article.id %>">Delete Me From Ajax</button>
+  <% } %>
 </div>

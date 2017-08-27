@@ -1,15 +1,19 @@
 <% include globals/head %>
 
     <div class="links">
-      <a href="/articles/create">Add Article</a> 
-      <a href="/login">Login</a>
-      <a href="/user/signup">New User</a>
+        <% if (typeof user !== 'undefined') { %>
+            <a href="/articles/create">Add Article</a> 
+            <a href="/logout">Logout | <%= user.firstName %></a>
+        <% } else { %>
+            <a href="/login">Login</a>
+            <a href="/user/signup">New User</a>
+        <% } %>
     </div>
 
     <main>
         <div class="articles__list">
             <% articles.forEach(function(article) { %>
-            <%- include('partials/article-item', {article}); %>
+            <%- include('partials/article-item', {article, user}); %>
             <% }) %>
         </div>
     </main>
