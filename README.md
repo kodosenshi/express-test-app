@@ -2,6 +2,16 @@
 
 ## Installation   
 
+### S3 and .env   
+You should have a local `.env` file with at least these keys:
+
+```yaml
+DATABASE_URL=postgres://DBUSER:DBPASSWORD@localhost:5432/blog
+S3_BUCKET=YOUR_S3_BUCKET_NAME
+AWS_SECRET_ACCESS_KEY=YOUR_S3_SECRET_KEY
+AWS_ACCESS_KEY_ID=YOUR_S2_ACCESS_KEY
+```
+
 ### Clone this repo locally
 
 In order to run this application locally, clone it to your projects directory and then follow the installation instructions below.   
