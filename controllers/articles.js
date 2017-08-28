@@ -162,7 +162,10 @@ module.exports.signS3 = function(req, res) {
     Expires: 60,
     ContentType: fileType,
     ACL: 'public-read'
-  };
+	};
+	
+
+	
 
   s3.getSignedUrl('putObject', s3Params, (err, data) => {
     if(err){
